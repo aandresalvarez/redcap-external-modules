@@ -185,7 +185,7 @@ if (version_compare(PHP_VERSION, ExternalModules::MIN_PHP_VERSION, '<')) {
 			?>
 				<tr data-module='<?= $prefix ?>' data-version='<?= $version ?>'>
 					<td><div class='external-modules-title'><?= $config['name'] . ' - ' . $version ?>
-                            <?php if ($system_enabled) print "<span class='label label-warning'>Enabled for All Projects</span>" ?>
+                            <?php if ($system_enabled) print "<span class='label label-warning'>Global Module</span>" ?>
                         </div><div class='external-modules-description'><?php echo $config['description'] ? $config['description'] : ''; ?></div><div class='external-modules-byline'>
 <?php
         if ($config['authors']) {
