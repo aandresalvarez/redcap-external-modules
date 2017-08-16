@@ -502,6 +502,12 @@ class AbstractExternalModule
 		return db_fetch_assoc($q);
 	}
 
+	public function getMetadata($projectId,$forms = NULL) {
+		$metadata = \REDCap::getDataDictionary($projectId,"array",TRUE,NULL,$forms);
+
+		return $metadata;
+	}
+
 	public function getData($projectId,$recordId,$eventId="",$format="array") {
 		$data = \REDCap::getData($projectId,$format,$recordId);
 

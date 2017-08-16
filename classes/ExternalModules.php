@@ -1848,6 +1848,12 @@ class ExternalModules
 		// return APP_PATH_WEBROOT_PARENT."/external_modules/manager/js/";
 	}
 
+	static function getManagerCSSDirectory() {
+		return "css/";
+		# just in case absolute path is needed, I have documented it here
+		// return APP_PATH_WEBROOT_PARENT."/external_modules/manager/css/";
+	}
+
 	/**
 	 * This is used by the EmailTriggerModule
 	 */

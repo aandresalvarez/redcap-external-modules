@@ -14,10 +14,9 @@ if(empty($configsByPrefixJSON)) {
 
 // The decision to use TinyMCE was not taken lightly.  I actually tried integrating Quill, Trix, and Summernote as well, but they either
 // didn't work as well out of the box when placed inside the configuration model, or were not as flexible/customizable.
-?><script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/4.6.1/tinymce.min.js" integrity="sha256-GnWmLZ0UK0TTmZEj5w4U6SLOnEJlalLnsOLDcUXzYyc=" crossorigin="anonymous"></script><?php
-ExternalModules::addResource('select2/dist/css/select2.min.css', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css', 'sha256-xJOZHfpxLR/uhh1BwYFS5fhmOAdIRQaiOul5F/b7v3s=');
-ExternalModules::addResource('select2/dist/js/select2.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js', 'sha256-+mWd/G69S4qtgPowSELIeVAv7+FuL871WXaolgXnrwQ=');
-
+ExternalModules::addResource(ExternalModules::getManagerJSDirectory().'tinymce.min.js');
+ExternalModules::addResource(ExternalModules::getManagerCSSDirectory().'select2.css');
+ExternalModules::addResource(ExternalModules::getManagerJSDirectory().'select2.js');
 ExternalModules::addResource(ExternalModules::getManagerJSDirectory().'globals.js');
 ?>
 <script>

@@ -60,7 +60,7 @@ ExternalModules::safeRequireOnce('templates/enabled-modules.php');
 	</div>
 </div>
 
-<?php ExternalModules::addResource('spin.js/spin.min.js', 'https://cdnjs.cloudflare.com/ajax/libs/spin.js/2.3.2/spin.min.js', 'sha256-PieqE0QdEDMppwXrTzSZQr6tWFX3W5KkyRVyF1zN3eg='); ?>
+<?php ExternalModules::addResource(ExternalModules::getManagerJSDirectory().'spin.js'); ?>
 <?php ExternalModules::addResource(ExternalModules::getManagerJSDirectory().'control_center.js'); ?>
 
 <?php

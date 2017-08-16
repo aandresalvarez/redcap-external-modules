@@ -161,11 +161,11 @@ if (version_compare(PHP_VERSION, ExternalModules::MIN_PHP_VERSION, '<')) {
 				if($configRow['source']) {
 					$sources = explode(",",$configRow['source']);
 					foreach($sources as $sourceLocation) {
-						if(is_file(ExternalModules::getModuleDirectoryPath($prefix,$version)."/".$sourceLocation)) {
+						if(file_exists(ExternalModules::getModuleDirectoryPath($prefix,$version)."/".$sourceLocation)) {
 							// include file from module directory
 							ExternalModules::addResource(ExternalModules::getModuleDirectoryUrl($prefix,$version)."/".$sourceLocation);
 						}
-						else if(is_file(dirname(__DIR__)."/js/".$sourceLocation)) {
+						else if(file_exists(dirname(__DIR__)."/js/".$sourceLocation)) {
 							// include file from external_modules directory
 							ExternalModules::addResource("js/".$sourceLocation);
 						}
