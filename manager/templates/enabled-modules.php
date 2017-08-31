@@ -163,7 +163,7 @@ if (version_compare(PHP_VERSION, ExternalModules::MIN_PHP_VERSION, '<')) {
 					foreach($sources as $sourceLocation) {
 						if(file_exists(ExternalModules::getModuleDirectoryPath($prefix,$version)."/".$sourceLocation)) {
 							// include file from module directory
-							ExternalModules::addResource(ExternalModules::getModuleDirectoryUrl($prefix,$version)."/".$sourceLocation);
+							ExternalModules::addResource(ExternalModules::getModuleDirectoryUrl($prefix,$version).$sourceLocation);
 						}
 						else if(file_exists(dirname(__DIR__)."/js/".$sourceLocation)) {
 							// include file from external_modules directory

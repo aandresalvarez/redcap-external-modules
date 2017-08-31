@@ -1610,13 +1610,13 @@ class ExternalModules
 			$configRow['choices'] = $choices;
 		}
 		else if($configRow['type'] == 'sub_settings') {
+            // Build a comma-separated list of sources in sub-settings
+            $sources = !empty($configRow["source"]) ? array($configRow["source"]) : array();
 			foreach ($configRow['sub_settings'] as $subConfigKey => $subConfigRow) {
 				$configRow['sub_settings'][$subConfigKey] = self::getAdditionalFieldChoices($subConfigRow,$pid);
-				if(!isset($configRow['source']) && $configRow['sub_settings'][$subConfigKey]['source']) {
-					$configRow['source'] = "";
-				}
-				$configRow["source"] .= ($configRow["source"] == "" ? "" : ",").$configRow['sub_settings'][$subConfigKey]['source'];
+				if (!empty($configRow['sub_settings'][$subConfigKey]['source'])) $sources[] = $configRow['sub_settings'][$subConfigKey]['source'];
 			}
+			$configRow["source"] = implode(",", $sources);
 		}
 		else if($configRow['type'] == 'project-id') {
 			$sql = "SELECT p.project_id, p.app_title
