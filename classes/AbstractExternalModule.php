@@ -256,24 +256,25 @@ class AbstractExternalModule
 		return null;
 	}
 
-	function getUrl($path, $noAuth = false)
+	function getUrl($path, $noAuth = false, $useApiEndpoint = false)
 	{
-        	$pid = self::detectProjectId();
+        $pid = self::detectProjectId();
 		$extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-        	$url = '';
-		if($extension != 'php'){
+        $url = '';
+		if ($extension == 'php' || $useApiEndpoint){
+			$url = ExternalModules::getUrl($this->PREFIX, $path, $useApiEndpoint);
+			if ($extension == 'php') {
+				if (!empty($pid)){
+					$url .= '&pid='.$pid;
+				}
+				if ($noAuth) {
+					$url .= '&NOAUTH';
+				}
+			}
+		} else {
 			// This must be a resource, like an image or css/js file.
 			// Go ahead and return the version specific url.
 			$url =  ExternalModules::getModuleDirectoryUrl($this->PREFIX, $this->VERSION) . $path;
-		}else {
-			$url = ExternalModules::getUrl($this->PREFIX, $path);
-			if(!empty($pid)){
-				$url .= '&pid='.$pid;
-			}
-
-			if($noAuth){
-				$url .= '&NOAUTH';
-			}
 		}
 		return $url;
 	}
