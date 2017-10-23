@@ -97,14 +97,12 @@ class ExternalModules
 		),
 		array(
 			'key' => self::KEY_DISCOVERABLE,
-			'name' => 'Make module discoverable by users - Display info on External Modules page in all projects',
+			'name' => '<b>Make module discoverable by users:</b><br>Display info on External Modules page in all projects',
 			'type' => 'checkbox'
 		),
 		array(
 			'key' => self::KEY_CONFIG_USER_PERMISSION,
-			'name' => '<b>Module configuration permissions in projects:</b><br>By default, users with Project Setup/Design privileges can '
-					. 'modify this module\'s project-level configuration settings. Alternatively, project users can be given explicit '
-					. 'module-level permission (via User Rights page) in order to do so',
+			'name' => '<b>Module configuration permissions in projects:</b><br>By default, users with Project Setup/Design privileges can modify this module\'s project-level configuration settings. Alternatively, project users can be given explicit module-level permission (via User Rights page) in order to do so',
 			'type' => 'dropdown',
 			"choices" => array(
 				array("value" => "", "name" => "Require Project Setup/Design privilege"),
@@ -1526,9 +1524,35 @@ class ExternalModules
 	static function getUrl($prefix, $page, $useApiEndpoint=false)
 	{
 		$id = self::getIdForPrefix($prefix);
+		$getParams = array();
+		if (preg_match("/\.php\?.+$/", $page, $matches)) {
+			$getChain = preg_replace("/\.php\?/", "", $matches[0]);
+			$page = preg_replace("/\?.+$/", "", $page);
+			$getPairs = explode("&", $getChain);
+			foreach ($getPairs as $pair) {
+				$a = explode("=", $pair);
+				# implode unlikely circumstance of multiple ='s
+				$b = array();
+				for ($i = 1; $i < count($a); $i++) {
+					$b = $a[$i];
+				}
+				$value = implode("=", $b);
+				$getParams[$a[0]] = $value;
+			}
+			if (isset($getParams['id'])) {
+				unset($getParams['id']);
+			}
+			if (isset($getParams['page'])) {
+				unset($getParams['page']);
+			}
+		}
 		$page = preg_replace('/\.php$/', '', $page); // remove .php extension if it exists
+		$get = "";
+		foreach ($getParams as $key => $value) {
+			$get .= "&$key=$value";
+		}
 		$base = $useApiEndpoint ? APP_PATH_WEBROOT_FULL."api/?type=module&" : self::$BASE_URL."?";
-		return $base . "id=$id&page=".urlencode($page);
+		return $base . "id=$id&page=" . urlencode($page) . $get;
 	}
 	
 	# Returns boolean regarding if the module is an example module in the example_modules directory.
@@ -1600,6 +1624,10 @@ class ExternalModules
 	# returns the config.json for a given module
 	static function getConfig($prefix, $version = null, $pid = null)
 	{
+		if(empty($prefix)){
+			throw new Exception("You must specify a prefix!");
+		}
+
 		if($version == null){
 			$version = self::getEnabledVersion($prefix);
 		}

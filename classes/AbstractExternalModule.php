@@ -17,10 +17,13 @@ class AbstractExternalModule
 	# constructor
 	function __construct()
 	{
-		list($prefix, $version) = ExternalModules::getParseModuleDirectoryPrefixAndVersion($this->getModuleDirectoryName());
+		// This if statement is only necessary for the BaseTestExternalModule.
+		if(!isset($this->PREFIX)){
+			list($prefix, $version) = ExternalModules::getParseModuleDirectoryPrefixAndVersion($this->getModuleDirectoryName());
 
-		$this->PREFIX = $prefix;
-		$this->VERSION = $version;
+			$this->PREFIX = $prefix;
+			$this->VERSION = $version;
+		}
 
 		// Disallow illegal configuration options at module instantiation (and enable) time.
 		self::checkSettings();
@@ -277,6 +280,11 @@ class AbstractExternalModule
 			$url =  ExternalModules::getModuleDirectoryUrl($this->PREFIX, $this->VERSION) . $path;
 		}
 		return $url;
+	}
+	
+	public function getModulePath()
+	{
+		return ExternalModules::getModuleDirectoryPath($this->PREFIX, $this->VERSION) . DS;
 	}
 
 	public function getModuleName()

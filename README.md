@@ -34,9 +34,10 @@ delayModuleExecution() | pushes the execution of the module to the end of the qu
 disableUserBasedSettingPermissions() | By default an exception will be thrown if a set/remove setting method is called and the current user doesn't have access to change that setting.  Call this method in a module's constructor to disable this behavior and leave settings permission checking up to the module itself.
 getChoiceLabel($fieldName, $value[, $pid]) | Get the label associated with the specified choice value for a particular field.
 getChoiceLabels($fieldName[, $pid]) | Returns an array mapping all choice values to labels for the specified field.
-getConfig() | get the config for the current External Module; consists of config.json and filled-in values
-getModuleDirectoryName() | get the directory name of the current external module
-getModuleName() | get the name of the current external module
+getConfig() | Get the config for the current External Module; consists of config.json and filled-in values
+getModuleDirectoryName() | Get the directory name of the current external module
+getModuleName() | Get the name of the current external module
+getModulePath() | Get the path of the current module directory (e.g., /var/html/redcap/modules/votecap_v1.1/)
 getProjectSetting($key&nbsp;[,&nbsp;$pid]) | Returns the value stored for the specified key for the current project if it exists.  If this setting key is not set (overriden) for the current project, the systemwide value for this key is returned.  In most cases the project id can be detected automatically, but it can optionaly be specified as the third parameter instead.
 getSettingConfig($key) | Returns the configuration for the specified setting.
 getSettingKeyPrefix() | This method can be overridden to prefix all setting keys.  This allows for multiple versions of settings depending on contexts defined by the module.
