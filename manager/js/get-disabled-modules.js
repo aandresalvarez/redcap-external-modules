@@ -47,10 +47,17 @@ $(function(){
 
 			var list = enableModal.find('.modal-body ul');
 			list.html('');
-
+			
+			var permissionCount = 0;
 			disabledModules[prefix][version].permissions.forEach(function(permission){
-				list.append("<li>" + permission + "</li>");
+				if (permission != "") {
+					list.append("<li>" + permission + "</li>");
+					permissionCount++;
+				}
 			});
+			if (permissionCount == 0) {
+				list.append("<li><i>None (no permissions requested)</i></li>");
+			}
 
 			enableButton.off('click'); // disable any events attached from other modules
 			enableButton.click(function(){

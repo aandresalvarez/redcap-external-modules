@@ -299,7 +299,7 @@ class ExternalModules
 	{
 		global $project_contact_email;
 
-		$message .= "<br><br>Server: " . gethostname() . "<br>";
+		$message .= "<br><br>Server: " . SERVER_NAME . " (" . gethostname() . ")<br>";
 		$from = $project_contact_email;
 		$to = [$project_contact_email];
 
@@ -338,6 +338,7 @@ class ExternalModules
 					}
 				}
 
+				$message .= "Module Name: " . $config['name'] . " ($prefix)<br>";
 				$message .= "Module Author(s): " . implode(', ', $authorEmails) . "<br>";
 			} catch (Exception $e) {
 				// The problem is likely due to loading the configuration.  Ignore this Exception.

@@ -52,6 +52,10 @@ ExternalModules::addResource(ExternalModules::getManagerJSDirectory().'globals.j
             }
             $.post(url, { }, function (html) {
                 form.html(html);
+				// Enable module search
+				$('input#disabled-modules-search').quicksearch('table#external-modules-disabled-table tbody tr', {
+					selector: 'td:eq(0)'
+				});
             });
 
             disabledModal.modal('show');

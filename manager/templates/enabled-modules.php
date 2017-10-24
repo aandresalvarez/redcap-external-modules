@@ -40,7 +40,10 @@ $disableModuleConfirmProject = (isset($_GET['pid']) & !empty($_GET['pid'])) ? " 
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal">&times;</button>
-				<h4 class="modal-title">Available Modules</h4>
+				<h4 class="modal-title clearfix">
+					<div class="pull-left">Available Modules</div>
+					<div class="pull-right" style="margin-right:50px;"><input type="text" id="disabled-modules-search" class="quicksearchsm" placeholder="Search available modules"></div>
+				</h4>
 			</div>
 			<div class="modal-body">
 				<form>
@@ -158,16 +161,27 @@ $discoverableModules = ExternalModules::getDiscoverableModules();
 <br>
 <br>
 
-<?php if (isset($_GET['pid'])) { ?>
-<h4><b>Currently Enabled Modules</b></h4>
-<?php } else { ?>
-<h4><b>Modules Currently Available on this System</b></h4>
-<?php } ?>
+<h4 class="clearfix" style="max-width: 800px;">
+	<div class="pull-left"><b>
+	<?php if (isset($_GET['pid'])) { ?>
+	Currently Enabled Modules
+	<?php } else { ?>
+	Modules Currently Available on this System
+	<?php } ?>
+	</b></div>
+	<div class="pull-right"><input type="text" id="enabled-modules-search" class="quicksearch" placeholder="Search enabled modules"></div>
+</h4>
 
 <script>
 	var override = '<?=ExternalModules::OVERRIDE_PERMISSION_LEVEL_DESIGN_USERS?>';
 	var enabled = '<?=ExternalModules::KEY_ENABLED?>';
 	var overrideSuffix = '<?=ExternalModules::OVERRIDE_PERMISSION_LEVEL_SUFFIX?>';
+	$(function(){
+		// Enable module search
+		$('input#enabled-modules-search').quicksearch('table#external-modules-enabled tbody tr', {
+			selector: 'td:eq(0)'
+		});
+	});
 </script>
 
 <table id='external-modules-enabled' class="table">

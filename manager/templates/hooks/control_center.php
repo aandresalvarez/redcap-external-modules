@@ -4,33 +4,33 @@ require_once dirname(__FILE__) . '/../../../classes/ExternalModules.php';
 $extModLinks = ExternalModules::getLinks();
 if (!empty($extModLinks)) {
 ?>
-<script>
+<script type="text/javascript">
 	$(function () {
-		var span = $('<span style="position: relative; float: left; left: 4px;"></span>')
-
+		var items = '';
 		<?php
 		foreach($extModLinks as $name=>$link){
 			?>
-			span.append('<img src="<?php
-				if (file_exists(ExternalModules::$BASE_PATH . 'images/' . $link['icon'] . '.png')) {
+			items += '<div class="cc_menu_item"><img src="<?php
+				if (file_exists(ExternalModules::$BASE_PATH . 'images' . DS . $link['icon'] . '.png')) {
 					echo ExternalModules::$BASE_URL . 'images/' . $link['icon'] . ".png";
 				} else {
 					echo APP_PATH_WEBROOT . 'Resources/images/' . $link['icon'] . ".png"; 
 				}
-				?>">')
-			span.append('&nbsp; ')
-			span.append('<a href="<?= $link['url'] ?>"><?= $name ?></a>')
-			span.append('<br>')
+				?>">';
+			items += '&nbsp; ';
+			items += '<a href="<?= $link['url'] ?>"><?= $name ?></a>';
+			items += '</div>';
 			<?php
 		}
 		?>
-
-		var menu = $('#control_center_menu')
-		menu.find(':last').remove()
-		menu.append('<div style="clear: both;padding-bottom:6px;margin:0 -6px 3px;border-bottom:1px solid #ddd;"></div>')
-		menu.append('<b style="position:relative;">External Modules</b>')
-		menu.append('<br>')
-		menu.append(span)
+		if (items != '') {
+			var menu = $('#control_center_menu');
+			menu.append('<div class="cc_menu_divider"></div>');
+			menu.append('<div class="cc_menu_section">');
+			menu.append('<div class="cc_menu_header">External Modules</div>');
+			menu.append(items);
+			menu.append('</div>');
+		}
 	})
 </script>
 <?php
